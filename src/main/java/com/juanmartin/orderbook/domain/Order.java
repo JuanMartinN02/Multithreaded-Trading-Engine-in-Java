@@ -28,6 +28,21 @@ public class Order {
         this.orderType = orderType;
     }
 
+    // To String
+
+    @Override
+    public String toString() {
+        return "Order " +
+                "orderId=" + orderId +
+                ", orderType=" + orderType +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", timestamp=" + timestamp +
+                ", orderStatus=" + orderStatus +
+                "\n";
+    }
+
+
     // Setters
 
     public void setOrderStatus(Status orderStatus) {
