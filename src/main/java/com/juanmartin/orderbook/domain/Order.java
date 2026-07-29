@@ -5,27 +5,24 @@ import java.time.Instant;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Order {
-    private static final AtomicLong idGenerator = new AtomicLong(0);
+    private static final AtomicLong idGenerator = new AtomicLong(1);
 
     private final long orderId;
     private final OrderType orderType;
-    private BigDecimal price;
-    private long quantity;
+    private final BigDecimal price;
+    private final long quantity;
+    private long remainingQuantity;
     private Instant timestamp;
     private Status orderStatus;
 
-    public Order(OrderType orderType, BigDecimal price, long quantity, Instant timestamp, Status orderStatus) {
-        this.orderId = idGenerator.incrementAndGet();
-        this.orderType = orderType;
+    public Order(OrderType orderType, BigDecimal price, long quantity) {
         this.price = price;
         this.quantity = quantity;
-        this.timestamp = timestamp;
-        this.orderStatus = orderStatus;
-    }
-
-    public Order(OrderType orderType) {
-        this.orderId = idGenerator.incrementAndGet();
         this.orderType = orderType;
+        this.remainingQuantity = quantity;
+        this.orderId = idGenerator.incrementAndGet();
+        this.orderStatus = Status.NEW;
+        this.timestamp = Instant.now();
     }
 
     // To String
@@ -42,6 +39,13 @@ public class Order {
                 "\n";
     }
 
+    public void decreaseQuantity(long amount){
+        if (amount >= this.remainingQuantity){
+            this.remainingQuantity = remainingQuantity - amount;
+        }else {
+            throw new IllegalArgumentException("Cannot decrease more than amount available for Order");
+        }
+    }
 
     // Setters
 
@@ -73,5 +77,9 @@ public class Order {
 
     public Status getOrderStatus() {
         return orderStatus;
+    }
+
+    public Order(long remainingQuantity) {
+        this.remainingQuantity = remainingQuantity;
     }
 }
