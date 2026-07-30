@@ -7,36 +7,28 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Order {
     private static final AtomicLong idGenerator = new AtomicLong(1);
 
-    private final long orderId;
+    private final long orderId = idGenerator.incrementAndGet();
     private final OrderType orderType;
     private final BigDecimal price;
     private final long quantity;
+    private final Instant timestamp = Instant.now();
+
     private long remainingQuantity;
-    private Instant timestamp;
     private Status orderStatus;
 
     public Order(OrderType orderType, BigDecimal price, long quantity) {
+        this.orderType = orderType;
         this.price = price;
         this.quantity = quantity;
-        this.orderType = orderType;
         this.remainingQuantity = quantity;
-        this.orderId = idGenerator.incrementAndGet();
-        this.orderStatus = Status.NEW;
-        this.timestamp = Instant.now();
+        orderStatus = Status.NEW;
     }
 
     // To String
 
     @Override
     public String toString() {
-        return "Order " +
-                "orderId=" + orderId +
-                ", orderType=" + orderType +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", timestamp=" + timestamp +
-                ", orderStatus=" + orderStatus +
-                "\n";
+        return "[ Order #" + orderId + "(" + remainingQuantity + " shares remaining) ]";
     }
 
     public void decreaseQuantity(long amount){
@@ -77,9 +69,5 @@ public class Order {
 
     public Status getOrderStatus() {
         return orderStatus;
-    }
-
-    public Order(long remainingQuantity) {
-        this.remainingQuantity = remainingQuantity;
     }
 }

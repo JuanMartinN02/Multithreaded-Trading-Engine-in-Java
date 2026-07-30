@@ -16,8 +16,8 @@ public class OrderBook {
     in at the exact same price , the queue ensures the order that arrived
     first gets executed first FIFO*/
     // Key is the Price of the order and the Queue is for the orders in FIFO
-    ConcurrentSkipListMap<BigDecimal, ConcurrentLinkedQueue<Order>> bids = new ConcurrentSkipListMap<>();
-    ConcurrentSkipListMap<BigDecimal, ConcurrentLinkedQueue<Order>> asks = new ConcurrentSkipListMap<>(Comparator.reverseOrder());
+    ConcurrentSkipListMap<BigDecimal, ConcurrentLinkedQueue<Order>> bids = new ConcurrentSkipListMap<>(Comparator.reverseOrder());
+    ConcurrentSkipListMap<BigDecimal, ConcurrentLinkedQueue<Order>> asks = new ConcurrentSkipListMap<>();
 
     public void addOrder(Order order){
         // Check if order is ASK or BID
@@ -65,5 +65,18 @@ public class OrderBook {
         }
     }
 
+    public void printOrderBook(){
+        System.out.println(String.valueOf('*').repeat(100));
+
+        System.out.println("*** ASK Book ***");
+        asks.forEach((k, orders) -> System.out.println( k + "$ asks: " + orders.toString()));
+
+        System.out.println("");
+
+        System.out.println("*** BID Book ***");
+        bids.forEach((j, orders) -> System.out.println( j + "$ bids: " + orders.toString()));
+
+        System.out.println(String.valueOf('*').repeat(100));
+    }
 
 }
