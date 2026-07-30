@@ -5,6 +5,7 @@ import com.juanmartin.orderbook.domain.OrderType;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListMap;
 
@@ -40,6 +41,27 @@ public class OrderBook {
                 orderList.add(order);
                 bids.put(order.getPrice(), orderList);
             }
+        }
+    }
+
+    // Get highest bid
+    public Map.Entry<BigDecimal, ConcurrentLinkedQueue<Order>> getBestBid(){
+        return bids.firstEntry();
+    }
+
+    // Get lowest ask
+    public Map.Entry<BigDecimal, ConcurrentLinkedQueue<Order>> getBestAsk(){
+        return asks.firstEntry();
+    }
+
+    // Cleanup of unused keys in books
+    public void removePriceLevelIfEmpty(Order order){
+        if (order.getOrderType() == OrderType.ASK){
+            ConcurrentLinkedQueue<Order> orderList = asks.get(order.getPrice());
+            if (orderList.isEmpty()){asks.remove(order.getPrice());};
+        }else {
+            ConcurrentLinkedQueue<Order> orderList = bids.get(order.getPrice());
+            if (orderList.isEmpty()){bids.remove(order.getPrice());};
         }
     }
 
