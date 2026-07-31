@@ -60,6 +60,10 @@ public class Order {
     }
 
     public long getQuantity() {
+        return remainingQuantity;
+    }
+
+    public long getOriginalQuantity() {
         return quantity;
     }
 
