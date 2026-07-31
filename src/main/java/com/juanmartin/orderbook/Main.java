@@ -2,7 +2,7 @@ package com.juanmartin.orderbook;
 
 import com.juanmartin.orderbook.domain.Order;
 import com.juanmartin.orderbook.domain.OrderType;
-import com.juanmartin.orderbook.engine.OrderBook;
+import com.juanmartin.orderbook.engine.MatchingEngine;
 
 import java.math.BigDecimal;
 
@@ -16,16 +16,17 @@ public class Main {
         Order order3b = new Order(OrderType.BID, BigDecimal.valueOf(60.50), 10);
         Order order4 = new Order(OrderType.BID, BigDecimal.valueOf(40), 7);
 
-        OrderBook book = new OrderBook();
+        MatchingEngine matchingEngine = new MatchingEngine();
 
-        book.addOrder(order1);
-        book.addOrder(order1b);
-        book.addOrder(order2);
-        book.addOrder(order3);
-        book.addOrder(order3b);
-        book.addOrder(order4);
 
-        book.printOrderBook();
+        matchingEngine.processOrder(order1);
+        matchingEngine.processOrder(order1b);
+        matchingEngine.processOrder(order2);
+        matchingEngine.processOrder(order3);
+        matchingEngine.processOrder(order3b);
+        matchingEngine.processOrder(order4);
+
+        matchingEngine.getOrderBook().printOrderBook();
 
     }
 }
