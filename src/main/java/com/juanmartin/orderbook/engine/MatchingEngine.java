@@ -7,13 +7,41 @@ import com.juanmartin.orderbook.domain.Trade;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MatchingEngine {
     private OrderBook orderBook = new OrderBook();
     private ConcurrentLinkedQueue<Trade> tradeLedger = new ConcurrentLinkedQueue<>();
 
+    // Order buffer (temporary data storage for new orders)
+    private ArrayBlockingQueue<Order> ingestionQueue = new ArrayBlockingQueue<>(1000);
+
     public MatchingEngine() {
+    }
+
+    public void submitOrder(Order order) throws InterruptedException {
+        ingestionQueue.put(order);
+    }
+
+    public void start(){
+
+        Thread consumer = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    Order order = ingestionQueue.take();
+                    processOrder(order);
+                } catch (InterruptedException e) {
+                    // Restore interrupted state and exit loop
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+
+        // Making it daemon so it doesn't block JVM exit
+        consumer.setDaemon(true);
+        consumer.start();
     }
 
     public void processOrder(Order order){
