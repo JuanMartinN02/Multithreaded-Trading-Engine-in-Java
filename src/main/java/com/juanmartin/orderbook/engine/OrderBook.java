@@ -55,13 +55,19 @@ public class OrderBook {
     }
 
     // Cleanup of unused keys in books
-    public void removePriceLevelIfEmpty(Order order){
-        if (order.getOrderType() == OrderType.ASK){
-            ConcurrentLinkedQueue<Order> orderList = asks.get(order.getPrice());
-            if (orderList.isEmpty()){asks.remove(order.getPrice());};
-        }else {
-            ConcurrentLinkedQueue<Order> orderList = bids.get(order.getPrice());
-            if (orderList.isEmpty()){bids.remove(order.getPrice());};
+    public void removePriceLevelIfEmpty(BigDecimal price, OrderType type){
+        if (price == null) return;
+
+        if (type == OrderType.ASK){
+            ConcurrentLinkedQueue<Order> orderList = asks.get(price);
+            if (orderList == null || orderList.isEmpty()){
+                asks.remove(price);
+            }
+        } else {
+            ConcurrentLinkedQueue<Order> orderList = bids.get(price);
+            if (orderList == null || orderList.isEmpty()){
+                bids.remove(price);
+            }
         }
     }
 
@@ -79,4 +85,11 @@ public class OrderBook {
         System.out.println(String.valueOf('*').repeat(100));
     }
 
+    public ConcurrentSkipListMap<BigDecimal, ConcurrentLinkedQueue<Order>> getBids() {
+        return bids;
+    }
+
+    public ConcurrentSkipListMap<BigDecimal, ConcurrentLinkedQueue<Order>> getAsks() {
+        return asks;
+    }
 }
