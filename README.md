@@ -12,7 +12,7 @@ A high-throughput, concurrent limit order book and matching engine built in core
 ```text
                ┌────────────────────────┐
                │    Order Generator     │
-               │   (Producer Threads)    │
+               │   (Producer Threads)   │
                └───────────┬────────────┘
                            │
                            ▼
