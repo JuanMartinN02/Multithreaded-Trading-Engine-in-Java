@@ -77,7 +77,7 @@ public class OrderBook {
         System.out.println("*** ASK Book ***");
         asks.forEach((k, orders) -> System.out.println( k + "$ asks: " + orders.toString()));
 
-        System.out.println("");
+        System.out.println();
 
         System.out.println("*** BID Book ***");
         bids.forEach((j, orders) -> System.out.println( j + "$ bids: " + orders.toString()));

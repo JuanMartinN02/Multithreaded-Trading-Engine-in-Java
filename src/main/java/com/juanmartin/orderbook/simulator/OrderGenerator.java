@@ -45,7 +45,7 @@ public class OrderGenerator implements Runnable {
 
             try {
                 matchingEngine.submitOrder(newOrder);
-                Thread.sleep(50);
+                // Thread.sleep(50);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Clean exit on shutdown
                 break;
