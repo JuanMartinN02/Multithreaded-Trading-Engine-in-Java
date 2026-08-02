@@ -32,7 +32,7 @@ public class Order {
     }
 
     public void decreaseQuantity(long amount){
-        if (amount >= this.remainingQuantity){
+        if (amount <= this.remainingQuantity){
             this.remainingQuantity = remainingQuantity - amount;
         }else {
             throw new IllegalArgumentException("Cannot decrease more than amount available for Order");
