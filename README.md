@@ -1,8 +1,3 @@
-Here is a polished version of your `README.md` formatted in GitHub-Flavored Markdown.
-
-The ASCII diagrams, file structure tree, and terminal output are wrapped in clean code blocks (`````) to ensure they render aligned on GitHub, GitLab, and portfolio viewables.
-
-```markdown
 # Multithreaded Limit Order Book & Matching Engine in Java
 
 A high-throughput, concurrent limit order book and matching engine built in core Java. It simulates a real-time electronic exchange by handling asynchronous order submission, fast price-time priority matching, and live stream-based market data analytics.
