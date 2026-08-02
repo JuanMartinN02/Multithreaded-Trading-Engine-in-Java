@@ -9,7 +9,6 @@ A high-throughput, concurrent limit order book and matching engine built in core
 
 ## System Architecture Overview
 
-```text
                ┌────────────────────────┐
                │    Order Generator     │
                │   (Producer Threads)   │
