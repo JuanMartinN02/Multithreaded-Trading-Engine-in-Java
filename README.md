@@ -1,3 +1,4 @@
+```markdown
 # Multithreaded Limit Order Book & Matching Engine in Java
 
 A high-throughput, concurrent limit order book and matching engine built in core Java. It simulates a real-time electronic exchange by handling asynchronous order submission, fast price-time priority matching, and live stream-based market data analytics.
@@ -147,14 +148,5 @@ VWAP                  : $118.42
 105.35$ bids: [[ Order #136(87 shares remaining) ]]
 105.15$ bids: [[ Order #71(44 shares remaining) ]]
 ****************************************************************************************************
-
-```
-
-```
-
-<ElicitationsGroup message="Next steps to complete your GitHub portfolio setup:">
-  <Elicitation label="Generate a clean .gitignore and pom.xml" query="Can you generate a clean .gitignore and pom.xml file for this Java order book project?" />
-  <Elicitation label="Add Unit Tests with JUnit 5" query="How can I add JUnit 5 unit tests to test the OrderBook price-time priority matching logic?" />
-</ElicitationsGroup>
 
 ```
